@@ -1,0 +1,158 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+
+:root {
+    --tamanho-celula: 100px;
+    --tamanho-forma: calc(var(--tamanho-celula) * .9);
+}
+
+body {
+    margin: 0;
+}
+
+
+
+.tabuleiro {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+
+.celula {
+    width: var(--tamanho-celula);
+    height: var(--tamanho-celula);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.celula:first-child,
+.celula:nth-child(2),
+.celula:nth-child(3) {
+    border-top: none;
+}
+
+.celula:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.celula:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.celula:last-child,
+.celula:nth-child(8),
+.celula:nth-child(7) {
+    border-bottom: none;
+}
+
+.celula.x,
+.celula.circulo {
+    cursor: not-allowed;
+}
+
+.celula.x::before,
+.celula.x::after,
+.celula.circulo::before {
+    background-color: black;
+}
+
+.tabuleiro.x .celula:not(.x):not(.circulo):hover::before,
+.tabuleiro.x .celula:not(.x):not(.circulo):hover::after,
+.tabuleiro.circulo .celula:not(.x):not(.circulo):hover::before {
+    background-color: lightgray;
+}
+
+
+.celula.x::before,
+.celula.x::after,
+.tabuleiro.x .celula:not(.x):not(.circulo):hover::before,
+.tabuleiro.x .celula:not(.x):not(.circulo):hover::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--tamanho-forma) * .15);
+    height: var(--tamanho-forma);
+
+}
+
+.celula.x::before,
+.tabuleiro.x .celula:not(.x):not(.circulo):hover::before {
+    transform: rotate(45deg);
+}
+
+.celula.x::after,
+.tabuleiro.x .celula:not(.x):not(.circulo):hover::after {
+    transform: rotate(-45deg);
+}
+
+.celula.circulo::before,
+.celula.circulo::after,
+.tabuleiro.circulo .celula:not(.x):not(.circulo):hover::before,
+.tabuleiro.circulo .celula:not(.x):not(.circulo):hover::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+
+}
+
+.celula.circulo::before,
+.tabuleiro.circulo .celula:not(.x):not(.circulo):hover::before {
+    width: var(--tamanho-forma);
+    height: var(--tamanho-forma);
+
+}
+
+.celula.circulo::after,
+.tabuleiro.circulo .celula:not(.x):not(.circulo):hover::after {
+    width: calc(var(--tamanho-forma) * .7);
+    height: calc(var(--tamanho-forma) * .7);
+    background-color: white;
+}
+
+.vitoria {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .9);
+    
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+}
+
+.vitoria button {
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: .25em .5em;
+    cursor: pointer;
+}
+.vitoria button:hover {
+   background-color: black;
+   border-color: white;
+   color: white;
+
+}
+
+.vitoria.mostrar{
+    display: flex;
+}
+
